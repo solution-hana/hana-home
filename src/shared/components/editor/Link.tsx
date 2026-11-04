@@ -9,9 +9,17 @@ interface LinkProps {
   editor: Editor | null;
 }
 
+interface LinkMenuProps {
+  editor: Editor;
+}
+
 const Link = ({ editor }: LinkProps) => {
   if (!editor) return null;
 
+  return <LinkMenu editor={editor} />;
+};
+
+const LinkMenu = ({ editor }: LinkMenuProps) => {
   const linkMenuRef = useRef<HTMLDivElement>(null);
   const [isLinkMenuOpen, setIsLinkMenuOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
