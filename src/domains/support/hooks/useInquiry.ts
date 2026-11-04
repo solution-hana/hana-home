@@ -108,7 +108,7 @@ const createInquiryFrom = (inquiry: Inquiry) => {
   `;
 }
 
-export const sendInquiry = () => {
+export const useSendInquiry = () => {
   return useMutation({
     mutationFn: async (inquiry: Inquiry): Promise<any> => {
       const html = createInquiryFrom(inquiry);

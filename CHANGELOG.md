@@ -7,6 +7,8 @@
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-11-05
+
 ### Added
 
 - 빌드 후 프리렌더 파이프라인 (`scripts/prerender.mjs`) — Puppeteer로 전 경로를 실제 렌더링해 정적 HTML로 저장. 시공사례·공지사항처럼 Supabase에서 데이터를 받아오는 페이지도 내용이 채워진 상태로 생성되므로, JS를 실행하지 않는 검색·AI 크롤러가 본문을 읽을 수 있음
@@ -23,16 +25,26 @@
 - `vercel.json` — 부모 경로(`/about`, `/business` 등)를 301 리다이렉트로 전환하고, 전체 경로 rewrite를 관리자·공지 상세로만 한정
 - 공지사항 상세 메타데이터를 DB의 제목·본문으로 구성해 글마다 구분되도록 변경
 - 빌드·배포 Node 버전을 22 LTS로 고정 (`engines.node`, `.nvmrc`)
+- 견적 문의 메일 발송 요청에서 수신자 주소 필드 제거 — Edge Function이 `subject`·`html`만 받고 수신자를 서버에서 고정 처리하도록 변경된 데 맞춤
+- ESLint 9 플랫 설정(`eslint.config.js`)으로 전환 — ESLint 9가 `.eslintrc.*`를 읽지 않아 린트가 설정 파일을 찾지 못하고 실패하던 상태를 복구. `typescript-eslint`·`@eslint/js`·`globals`를 명시적 devDependency로 추가하고, lint 스크립트에서 불필요해진 `--ext` 제거
+- 타입체크 룰셋(`recommendedTypeChecked`)은 보류하고 `no-explicit-any`를 warn으로 강등 — 설정 오류로 한 번도 실제 적용된 적이 없어 위반 183건(41개 파일)이 누적되어 있어, 린트 게이트를 먼저 통과시킨 뒤 단계적으로 도입
+- `sendInquiry`를 `useSendInquiry`로 이름 변경 — `useMutation`을 호출하는 커스텀 훅이므로 훅 네이밍 규칙 적용
+
+### Removed
+
+- 태양광 모듈 청소 페이지에 주석으로 남아 있던 외부 업체 연락처·명함 이미지 — 요구사항에 따라 비노출 처리된 뒤 소스에만 보존되어 있던 정보를 완전히 제거
 
 ### Security
 
 - 의존성 보안 취약점 16건(high 15, moderate 1) 해소 — axios, vite, svgo, `@tiptap/core`, brace-expansion 등. `sharp`는 libvips·libheif·librsvg 취약점 해소를 위해 0.35.5로 상향
+- 견적 문의 메일 템플릿의 HTML 이스케이프 누락 해소 — 고객이 입력한 이름·연락처·주소·문의 내용이 이스케이프 없이 보간되어 임의 마크업 삽입(HTML 인젝션)이 가능했고, `<`·`&`가 포함된 일반적인 입력에도 메일 레이아웃이 깨졌음
 
 ### Fixed
 
 - 모든 하위 페이지의 canonical이 홈(`/`)을 가리켜 색인에서 중복 페이지로 취급되던 문제
 - `og:image`에 해당하는 실제 파일이 없어 공유·미리보기 이미지가 HTML로 응답되던 문제
 - 존재하지 않는 URL이 404 대신 200을 반환하던 soft 404 문제
+- 에디터 툴바·링크 메뉴가 훅 호출보다 앞에서 조기 반환해, `editor`가 준비되는 시점에 훅 개수가 바뀌며 렌더가 깨질 수 있던 문제
 
 ## [1.3.0] - 2026-08-27
 

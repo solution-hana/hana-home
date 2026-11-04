@@ -7,7 +7,7 @@ import type { Inquiry } from '@/types/common';
 import { useMinSubmitTime } from '@/shared/hooks/useMinSubmitTime';
 import { isValidPhoneNumber, formatPhoneNumberInput } from '@/shared/utils/validation';
 
-import { sendInquiry } from '@/domains/support/hooks/useInquiry';
+import { useSendInquiry } from '@/domains/support/hooks/useInquiry';
 
 import SimplePrivacyModal from './SimplePrivacyModal';
 
@@ -60,7 +60,7 @@ export default function InquiryForm() {
     setValues((prev) => ({ ...prev, [key]: value }));
   };
 
-  const { mutate: sendInquiryMutation, isPending, isError, isSuccess } = sendInquiry();
+  const { mutate: sendInquiryMutation, isPending, isError, isSuccess } = useSendInquiry();
 
   useEffect(() => {
     if (isSuccess) {
