@@ -115,8 +115,6 @@ export const sendInquiry = () => {
       const response = await fetch(`${SUPABASE_URL}/functions/v1/send-mail/resend`, {
         method: 'POST',
         body: JSON.stringify({
-          // 수신자 이메일
-          email: 'hnsolution1116@naver.com',
           // 이메일 제목
           subject: '새로운 견적 문의가 접수되었습니다.',
           // 이메일 내용
