@@ -2,31 +2,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, Button, Text } from '@chakra-ui/react';
 
-// import SOLAR_CLEANING_BUSINESS_CARD_IMAGE from '@/assets/images/business/cleaning_business_card.jpg';
-
 const SOLAR_CLEANING_INFO_BG = "https://images.unsplash.com/photo-1662101525913-21d521ea4a11?q=80&w=1170&auto=format&fit=crop";
-
-// const SOLAR_CLEANING_INFO_DATA = {
-//   email: "yoonhj0108@naver.com",
-//   blog: "blog.naver.com/yoonsungclean",
-//   phone: "010-7531-9653",
-// }
 
 export default function SolarCleaningInfo() {
   const navigate = useNavigate();
-
-  // const contact = useMemo(() => {
-  //   const email = SOLAR_CLEANING_INFO_DATA.email.trim();
-  //   const phone = SOLAR_CLEANING_INFO_DATA.phone.trim();
-  //   const blogLabel = SOLAR_CLEANING_INFO_DATA.blog.trim();
-  //   const blogUrl = blogLabel.startsWith('http') ? blogLabel : `https://${blogLabel}`;
-
-  //   return { email, phone, blogLabel, blogUrl };
-  // }, []);
-
-  // const handleCopy = async (value: string) => {
-  //   await navigator.clipboard.writeText(value);
-  // };
 
   return (
     <Box
@@ -100,128 +79,6 @@ export default function SolarCleaningInfo() {
             문의하기
           </Button>
         </Box>
-
-        {/* <Box
-          mt={{ base: 10, md: 12 }}
-          bg="rgba(255,255,255,0.08)"
-          border="1px solid rgba(255,255,255,0.16)"
-          borderRadius="2xl"
-          overflow="hidden"
-          boxShadow="0 20px 60px rgba(0,0,0,0.25)"
-          backdropFilter="blur(10px)"
-        >
-          <Box p={{ base: 5, md: 6 }}>
-            <Stack gap={3} align="center">
-              <Stack gap={1}>
-                <Stack direction={{ base: 'column', sm: 'row' }} gap={1} align={{ base: 'stretch', sm: 'center' }}>
-                  <Text
-                    color="white"
-                    fontWeight="800"
-                    fontFamily="NanumSquareNeo"
-                    fontSize="16px"
-                    letterSpacing="0.1em"
-                    display="flex"
-                    alignItems="center"
-                    gap={2}
-                    width="fit-content"
-                  >
-                    <PhoneIcon size={20} strokeWidth={2.5} />
-                    {contact.phone}
-                  </Text>
-                  <Button
-                    p={0}
-                    size="xs"
-                    variant="ghost"
-                    color="white"
-                    _hover={{ bg: 'whiteAlpha.200' }}
-                    onClick={() => handleCopy(contact.phone)}
-                    width={{ base: '100%', sm: 'fit-content' }}
-                  >
-                    <CopyIcon size={20} strokeWidth={2.5} />
-                  </Button>
-                </Stack>
-              </Stack>
-
-              <Stack gap={1}>
-                <Stack direction={{ base: 'column', sm: 'row' }} gap={1} align={{ base: 'stretch', sm: 'center' }}>
-                  <Text
-                    color="white"
-                    fontWeight="800"
-                    fontFamily="NanumSquareNeo"
-                    fontSize="16px"
-                    letterSpacing="0.1em"
-                    display="flex"
-                    alignItems="center"
-                    gap={2}
-                    width="fit-content"
-                  >
-                    <MailIcon size={20} strokeWidth={2.5} />
-                    {contact.email}
-                  </Text>
-                  <Button
-                    p={0}
-                    size="xs"
-                    variant="ghost"
-                    color="white"
-                    _hover={{ bg: 'whiteAlpha.200' }}
-                    onClick={() => handleCopy(contact.email)}
-                    width={{ base: '100%', sm: 'fit-content' }}
-                  >
-                    <CopyIcon size={20} strokeWidth={2.5} />
-                  </Button>
-                </Stack>
-              </Stack>
-
-              <Stack gap={1}>
-                <Stack direction={{ base: 'column', sm: 'row' }} gap={1} align={{ base: 'stretch', sm: 'center' }}>
-                  <Text
-                    color="white"
-                    fontWeight="800"
-                    fontFamily="NanumSquareNeo"
-                    fontSize="16px"
-                    letterSpacing="0.1em"
-                    display="flex"
-                    alignItems="center"
-                    gap={2}
-                    width="fit-content"
-                  >
-                    <GlobeIcon size={20} strokeWidth={2.5} />
-                    {contact.blogLabel}
-                  </Text>
-                  <Button
-                    p={0}
-                    size="xs"
-                    variant="ghost"
-                    color="white"
-                    _hover={{ bg: 'whiteAlpha.200' }}
-                    onClick={() => handleCopy(contact.blogUrl)}
-                    width={{ base: '100%', sm: 'fit-content' }}
-                  >
-                    <CopyIcon size={20} strokeWidth={2.5} />
-                  </Button>
-                </Stack>
-              </Stack>
-            </Stack>
-          </Box>
-
-          <Box px={{ base: 5, md: 6 }} pb={{ base: 5, md: 6 }}>
-            <Box
-              bg="white"
-              borderRadius="xl"
-              overflow="hidden"
-              boxShadow="0 10px 30px rgba(0,0,0,0.25)"
-            >
-              <Image
-                src={SOLAR_CLEANING_BUSINESS_CARD_IMAGE}
-                alt="윤성클린산업 명함"
-                width="100%"
-                height="auto"
-                loading="lazy"
-                objectFit="cover"
-              />
-            </Box>
-          </Box>
-        </Box> */}
       </Box>
     </Box>
   );
