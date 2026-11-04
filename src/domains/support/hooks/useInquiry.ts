@@ -4,6 +4,13 @@ import { Inquiry } from '@/types/common';
 
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from '@/shared/config/constants';
 
+const escapeHtml = (value: string) => {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 const createInquiryFrom = (inquiry: Inquiry) => {
   return `
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f4; padding: 40px 0;">
@@ -37,7 +44,7 @@ const createInquiryFrom = (inquiry: Inquiry) => {
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td width="100" style="color: #888; font-size: 13px;">이름</td>
-                          <td style="color: #1a1a1a; font-size: 14px; font-weight: 600;">${inquiry.name}</td>
+                          <td style="color: #1a1a1a; font-size: 14px; font-weight: 600;">${escapeHtml(inquiry.name)}</td>
                         </tr>
                       </table>
                     </td>
@@ -49,7 +56,7 @@ const createInquiryFrom = (inquiry: Inquiry) => {
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td width="100" style="color: #888; font-size: 13px;">연락처</td>
-                          <td style="color: #1a1a1a; font-size: 14px; font-weight: 600;">${inquiry.phone}</td>
+                          <td style="color: #1a1a1a; font-size: 14px; font-weight: 600;">${escapeHtml(inquiry.phone)}</td>
                         </tr>
                       </table>
                     </td>
@@ -61,7 +68,7 @@ const createInquiryFrom = (inquiry: Inquiry) => {
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td width="100" style="color: #888; font-size: 13px;">주소</td>
-                          <td style="color: #1a1a1a; font-size: 14px; font-weight: 600;">${inquiry.address}</td>
+                          <td style="color: #1a1a1a; font-size: 14px; font-weight: 600;">${escapeHtml(inquiry.address)}</td>
                         </tr>
                       </table>
                     </td>
@@ -77,7 +84,7 @@ const createInquiryFrom = (inquiry: Inquiry) => {
                   </tr>
                   <tr>
                     <td style="background-color: #f8f9fa; border-left: 3px solid #1a1a2e; padding: 16px 20px;">
-                      <p style="margin: 0; color: #333; font-size: 14px; line-height: 1.7; white-space: pre-wrap;">${inquiry.content === '' ? '별도의 문의 내용 ✖️' : inquiry.content}</p>
+                      <p style="margin: 0; color: #333; font-size: 14px; line-height: 1.7; white-space: pre-wrap;">${!inquiry.content ? '별도의 문의 내용 ✖️' : escapeHtml(inquiry.content)}</p>
                     </td>
                   </tr>
                 </table>
