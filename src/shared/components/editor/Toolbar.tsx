@@ -19,11 +19,19 @@ interface ToolBarProps {
   onImageUpload?: (file: File) => Promise<string | null | undefined>;
 }
 
+interface ToolBarContentProps extends Omit<ToolBarProps, 'editor'> {
+  editor: Editor;
+}
+
 export default function Toolbar({ editor, onImageUpload }: ToolBarProps) {
   if (!editor) {
     return null;
   }
 
+  return <ToolBarContent editor={editor} onImageUpload={onImageUpload} />;
+}
+
+function ToolBarContent({ editor, onImageUpload }: ToolBarContentProps) {
   useToolBar(editor);
 
   // Bold
