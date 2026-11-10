@@ -33,10 +33,16 @@ export const COMPANY_KAKAO_CHAT_URL = import.meta.env.VITE_COMPANY_KAKAO_CHAT_UR
 export const COMPANY_NAVER_BLOG_URL = import.meta.env.VITE_COMPANY_NAVER_BLOG_URL as string || "https://blog.naver.com/hanasolution__";
 
 // 틱톡 URL
-export const COMPANY_TIKTOK_URL = import.meta.env.VITE_COMPANY_TIKTOK_URL as string || "/preparation";
+export const COMPANY_TIKTOK_URL = import.meta.env.VITE_COMPANY_TIKTOK_URL as string || "https://www.tiktok.com/@hanasolution_solar";
 
 // 유튜브 URL
-export const COMPANY_YOUTUBE_URL = import.meta.env.VITE_COMPANY_YOUTUBE_URL as string || "/preparation";
+export const COMPANY_YOUTUBE_URL = import.meta.env.VITE_COMPANY_YOUTUBE_URL as string || "https://www.youtube.com/@hanasolution_solar";
+
+// 스레드 URL
+export const COMPANY_THREAD_URL = import.meta.env.VITE_COMPANY_THREAD_URL as string || "https://www.threads.com/@hanasolution_solar";
+
+// 인스타그램 URL
+export const COMPANY_INSTAGRAM_URL = import.meta.env.VITE_COMPANY_INSTAGRAM_URL as string || "https://www.instagram.com/hanasolution_solar/";
 
 // 헤더 메뉴
 export const HEADER_MENU = [
@@ -244,7 +250,9 @@ export const PRIVACY_TABLE_ROWS = [
 ]
 
 import blog from '@/assets/images/social/blog.png';
+import instagram from '@/assets/images/social/instagram.png';
 import kakao from '@/assets/images/social/kakao.png';
+import thread from '@/assets/images/social/thread.png';
 import tiktok from '@/assets/images/social/tiktok.png';
 import youtube from '@/assets/images/social/youtube.png';
 
@@ -254,6 +262,8 @@ export const PROMOTION_NAV_LINKS = [
   { name: '틱톡', image: tiktok, url: COMPANY_TIKTOK_URL },
   { name: '블로그', image: blog, url: COMPANY_NAVER_BLOG_URL },
   { name: '카카오톡', image: kakao, url: COMPANY_KAKAO_CHAT_URL },
+  { name: '스레드', image: thread, url: COMPANY_THREAD_URL },
+  { name: '인스타그램', image: instagram, url: COMPANY_INSTAGRAM_URL },
 ];
 
 // Supabase
