@@ -98,12 +98,12 @@ export const PAGE_SEO: Record<string, PageSeo> = {
     description: '(주)하나솔루션이 지역사회와 함께한 사회공헌 활동과 나눔 사례를 소개합니다.',
   },
   '/promotion/column': {
-    title: '칼럼 | (주)하나솔루션',
-    description: '공장·축사 지붕 태양광 설치 방식과 가능 여부 등 태양광 설치 전에 많이 묻는 질문을 (주)하나솔루션이 쉽게 풀어 드립니다.',
+    title: '태양광 정보 | (주)하나솔루션',
+    description: '공장·축사·창고 지붕, 농지·임야, 설치 비용과 수익, 인허가·한전 연계까지 태양광 설치 전에 많이 묻는 질문을 쉽게 풀어 드립니다.',
   },
   ...Object.fromEntries(COLUMNS.map((column) => [
     `/promotion/column/${column.slug}`,
-    { title: `${column.title} | 칼럼 | (주)하나솔루션`, description: column.description },
+    { title: `${column.title} | 태양광 정보 | (주)하나솔루션`, description: column.description },
   ])),
 
   '/support/faq': {
@@ -221,7 +221,7 @@ export function buildFaqJsonLd() {
   };
 }
 
-// 칼럼 상세 경로(/promotion/column/<slug>)의 글을 Article 노드로 만든다
+// 태양광 정보 상세 경로(/promotion/column/<slug>)의 글을 Article 노드로 만든다
 function buildColumnArticleJsonLd(pathname: string) {
   const column = findColumn(pathname.match(/^\/promotion\/column\/([^/]+)\/?$/)?.[1]);
 

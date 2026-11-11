@@ -27,7 +27,7 @@ export default function ColumnList() {
           letterSpacing="-0.02em"
           mb={2}
         >
-          칼럼
+          태양광 정보
         </Heading>
         <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.600" fontFamily="pretendard">
           태양광 설치 전에 많이 묻는 질문을 쉽게 풀어 드립니다.
@@ -54,6 +54,9 @@ export default function ColumnList() {
               <RouterLink to={`/promotion/column/${column.slug}`}>
                 <Flex alignItems="center" gap={4}>
                   <Box flex="1" minW={0}>
+                    <Text fontSize="sm" fontWeight="bold" color="orange.600" fontFamily="pretendard" mb={1}>
+                      {column.category}
+                    </Text>
                     <Heading
                       as="h2"
                       fontSize={{ base: 'lg', md: 'xl' }}

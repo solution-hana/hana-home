@@ -26,7 +26,7 @@ export default function FooterSocial() {
             }}
             transition='all 0.3s ease-in-out'
           >
-            칼럼
+            태양광 정보
           </Text>
         </Link>
 

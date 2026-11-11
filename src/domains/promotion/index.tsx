@@ -9,7 +9,7 @@ import SocialContribution from '@/domains/promotion/components/SocialContributio
 
 const navItems: { name: string, path: string }[] = [
   { name: '사회공헌', path: '/promotion/social-contribution' },
-  { name: '칼럼', path: '/promotion/column' },
+  { name: '태양광 정보', path: '/promotion/column' },
 ];
 
 interface PromotionProps {
