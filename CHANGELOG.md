@@ -7,6 +7,27 @@
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-11-11
+
+### Added
+
+- 홍보센터 '태양광 정보' 페이지 (`/promotion/column`) — 질문형 글 19편을 코드 페이지로 추가. 글별 주소·Article 구조화 데이터·프리렌더·사이트맵 경로 포함
+- 보안 헤더 (`vercel.json`) — HSTS, nosniff, 프레임 차단, Referrer-Policy, Permissions-Policy. 스크립트·연결 출처를 제한하는 전체 CSP 는 Report-Only 로 추가
+- 외부 주소 검사 (`src/shared/utils/url.ts`), 게시글 본문 거르개 (`sanitizeContent`), JSON-LD 이스케이프 (`serializeJsonLd`)
+- Dependabot 설정 (`.github/dependabot.yml`)
+- 스레드·인스타그램 링크와 소셜 채널 주소
+- README 작업 원칙(브랜치 · PR 흐름)
+
+### Fixed
+
+- SMP·REC 시세가 0 으로 보이는 경우 보완 — 가중치·거래량 값이 비어 있을 때의 계산, REC 조회 범위, 조회 실패 시 마지막 정상값 표시
+
+### Security
+
+- 팝업·포트폴리오 링크와 이미지 주소, 게시글 본문의 주소·색상 값을 그리기 전에 검증
+- 이미지 올리기 형식 제한(jpg·png·webp·gif·avif), 새 창 링크에 `noopener,noreferrer`
+- 브라우저 콘솔에 값을 찍던 디버그 로그 제거
+
 ## [1.4.0] - 2026-11-05
 
 ### Added
