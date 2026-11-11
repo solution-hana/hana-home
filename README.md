@@ -23,6 +23,41 @@ npm run dev
 
 ---
 
+## 작업 원칙
+
+| 구분 | 원칙 |
+|------|------|
+| 동기화 | 작업을 시작하기 전에 원격 `develop`을 `fetch` · `pull` 해서 로컬과 원격을 같게 맞춘다 |
+| `main` 보호 | 원격 `main`에는 직접 커밋 · push 하지 않는다 |
+| PR | 원격에 올릴 때는 반드시 PR을 거친다 (대상 브랜치: `develop`) |
+| merge | 최종 merge는 저장소 관리자(대표)가 변경사항을 확인한 뒤 직접 한다. AI · 자동화 도구는 merge 하지 않는다 |
+| 그 외 | `CLAUDE.md` 규칙을 따른다 |
+| 저장소 포함 | `.claude/` 와 `CLAUDE.md` 는 저장소에 올려도 된다 |
+
+### 작업 흐름
+
+최신 내려받기 → 요청 작업 → PR 생성 → 관리자 확인 후 merge · 배포
+
+```bash
+# 1. 최신 내려받기
+git fetch origin
+git checkout develop
+git pull origin develop
+
+# 2. 작업 브랜치 생성 (feature/ · fix/ · chore/ · docs/ 등)
+git checkout -b docs/작업-이름
+
+# 3. 작업 후 커밋 — 형식: type(scope): 내용
+git commit -m "docs(readme): 작업 원칙 추가"
+
+# 4. 작업 브랜치를 올리고 develop 대상 PR 생성
+git push -u origin docs/작업-이름
+```
+
+> PR을 만든 뒤에는 merge 하지 않고 PR 링크로 보고합니다.
+
+---
+
 ## 프로젝트 스펙
 
 | 항목 | 내용 |
