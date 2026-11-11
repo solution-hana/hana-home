@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 import { hidePopupForToday, isPopupHiddenForToday } from '@/shared/utils/storage';
+import { isExternalUrl, toCssUrl, toSafeUrl } from '@/shared/utils/url';
 
 interface PopupProps {
   title: string;
@@ -48,6 +49,9 @@ function PopupPanel({
   onClose: () => void;
   onHideToday: () => void;
 }) {
+  // 관리자 화면에서 넣은 주소라도 http(s)·사이트 안 경로가 아니면 버튼을 그리지 않는다
+  const safeLink = toSafeUrl(link);
+
   return (
     <>
       <Box
@@ -75,7 +79,7 @@ function PopupPanel({
           <Box
             position="absolute"
             inset={0}
-            bgImage={`url(${imageUrl})`}
+            bgImage={toCssUrl(imageUrl)}
             bgSize="cover"
             bgPos="center"
             bgRepeat="no-repeat"
@@ -106,7 +110,7 @@ function PopupPanel({
             )}
           </Flex>
 
-          {link && (
+          {safeLink && (
             <Flex justify="center" w="full" pt={2}>
               <Button
                 asChild
@@ -121,9 +125,9 @@ function PopupPanel({
                 }}
               >
                 <a
-                  href={link}
-                  target={link.startsWith('http') ? '_blank' : undefined}
-                  rel={link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  href={safeLink}
+                  target={isExternalUrl(safeLink) ? '_blank' : undefined}
+                  rel={isExternalUrl(safeLink) ? 'noopener noreferrer' : undefined}
                 >
                   이동하기
                 </a>

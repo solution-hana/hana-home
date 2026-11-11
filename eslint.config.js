@@ -33,7 +33,7 @@ export default tseslint.config(
         'error',
         { argsIgnorePattern: '^_' },
       ],
-      // TODO(#4): API 응답 타입 정의 후 'error' 로 승격하고 타입체크 룰셋 재도입
+      // 외부 API 응답에 타입이 정의되지 않은 지점이 남아 있어 warn 으로 유지한다
       '@typescript-eslint/no-explicit-any': 'warn',
     },
   },

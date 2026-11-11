@@ -2,6 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import supabase from '@/shared/config/supabase';
 import { getSmpDailyWeightedSummaries, groupSmpByTradeDate } from '@/shared/utils/smp';
+import { keepLastGood, readLastGood } from '@/shared/utils/storage';
+import type { SmpDailyWeightedSummary } from '@/types/smp';
+
+// 조회가 실패하거나 비었을 때 쓰는 마지막 정상값 저장 키
+const SMP_CACHE_KEY = 'hana:smp-weekly';
 
 // 주간 SMP 조회 훅 (하루 마다 재조회)
 export const useWeeklySmp = () => {
@@ -19,12 +24,16 @@ export const useWeeklySmp = () => {
         .order('trade_date', { ascending: false })
         .limit(7 * 48);
       
-      if (error) throw error;
+      if (error) {
+        const cached = readLastGood<SmpDailyWeightedSummary>(SMP_CACHE_KEY);
+        if (cached.length > 0) return cached;
+        throw error;
+      }
 
-      const grouped = groupSmpByTradeDate(data);
+      const grouped = groupSmpByTradeDate(data ?? []);
       const summaries = getSmpDailyWeightedSummaries(grouped);
 
-      return summaries;
+      return keepLastGood(SMP_CACHE_KEY, summaries);
     },
     // 24시간 1분 동안 fresh (하루에 한 번 조회)
     staleTime: 1000 * 60 * 60 * 24 + 1000 * 60,

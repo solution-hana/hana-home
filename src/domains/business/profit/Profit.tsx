@@ -132,7 +132,6 @@ export default function ProfitCalculator() {
     // 예상 수익 계산
     const result = await calcProfit(values);
 
-    console.log(result);
 
     if (result) {
       setValues((prev) => ({
