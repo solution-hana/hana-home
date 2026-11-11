@@ -7,6 +7,14 @@
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-12
+
+### Changed
+
+- 의존성 minor·patch 업데이트 14건 — `@chakra-ui/react` 3.38.0, `@supabase/supabase-js` 2.119.0, `@tanstack/react-query` 5.107.1, `@tiptap/*` 3.33.0, `recharts` 3.10.1, `typescript-eslint` 8.72.1, `eslint-plugin-react-refresh` 0.5.7
+- `slick-carousel` 2.0.0 — 메이저 업데이트지만 영향 범위가 좁다. 이 프로젝트는 CSS 두 개(`slick.css`·`slick-theme.css`)만 가져다 쓰고 `react-slick` 은 이 패키지에 의존하지 않는다. 실질 변경은 `.slick-slider` 의 `user-select` 가 `none` → `text` 로 바뀐 것뿐이며, 보완 규칙 `.slick-list.draggable` 은 react-slick 이 해당 클래스를 붙이지 않아 적용되지 않는다. 시공사례 캐러셀은 자동 재생 전용(`arrows`·`dots` 미사용)이라 조작에 영향 없음
+- `eslint-plugin-react-hooks` 7.1.1 — `recommended` 가 React Compiler 규칙 14개를 추가로 켜면서 기존 코드에서 error 16건이 발생해 린트가 실패했음(`set-state-in-effect` 13건, `refs` 2건, `purity` 1건). `rules-of-hooks`·`exhaustive-deps` 는 v5 와 같은 수준으로 유지하고 신규 규칙은 warn 으로 내려 단계적으로 수정하도록 `eslint.config.js` 에 명시
+
 ## [1.5.0] - 2026-11-11
 
 ### Added
