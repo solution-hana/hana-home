@@ -35,9 +35,6 @@ export const CONTENT_ROUTES = [
   '/promotion/column/livestock-roof-by-animal-type',
   '/promotion/column/livestock-asbestos-slate-removal-support',
   '/promotion/column/farmland-solar-install-conditions',
-  '/promotion/column/agrivoltaics-special-act-before-enforcement',
-  '/promotion/column/agricultural-promotion-area-agrivoltaics',
-  '/promotion/column/net-metering-over-10kw-surplus-settlement',
   '/promotion/column/what-is-smp',
   '/promotion/column/what-is-rec',
   '/promotion/column/install-cost-per-kw',
@@ -46,7 +43,6 @@ export const CONTENT_ROUTES = [
   '/promotion/column/warehouse-roof-solar-conditions',
   '/promotion/column/parking-lot-canopy-solar',
   '/promotion/column/farmland-conversion-solar-procedure',
-  '/promotion/column/forest-land-solar-temporary-use-permit',
   '/promotion/column/kepco-grid-connection-check',
 
   '/support/faq',
