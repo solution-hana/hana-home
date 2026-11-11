@@ -73,7 +73,6 @@ export const useCreatePopup = () => {
     mutationFn: async (input: PopupInput) => {
       const session = await ensureAdminSession();
 
-      console.log(input);
 
       const { data, error } = await supabase
         .from('popups')
