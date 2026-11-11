@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Box } from '@chakra-ui/react';
 
@@ -8,6 +8,7 @@ import { TextStyle, Color } from '@tiptap/extension-text-style';
 import { EditorContent, useEditor, type JSONContent } from '@tiptap/react';
 
 import { CustomImage } from '@/shared/components/editor/hooks/useImage';
+import { sanitizeContent } from '@/shared/components/editor/sanitizeContent';
 
 // CSS import
 import '@/shared/components/editor/index.css';
@@ -19,6 +20,12 @@ interface EditorViewerProps {
 }
 
 export default function EditorViewer({ content, className }: EditorViewerProps) {
+  // DB 에서 온 본문은 그리기 전에 주소·색상 값을 걸러 낸다
+  const safeContent = useMemo(
+    () => (content ? sanitizeContent(content) : { type: 'doc', content: [] }),
+    [content],
+  );
+
   const editor = useEditor({
     extensions: [
       StarterKit, 
@@ -29,7 +36,7 @@ export default function EditorViewer({ content, className }: EditorViewerProps) 
         multicolor: true,
       })
     ],
-    content: content ?? { type: 'doc', content: [] },
+    content: safeContent,
     editable: false,
     editorProps: {
       attributes: {
@@ -40,9 +47,8 @@ export default function EditorViewer({ content, className }: EditorViewerProps) 
 
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
-    const nextContent = content ?? { type: 'doc', content: [] };
-    editor.commands.setContent(nextContent, { emitUpdate: false });
-  }, [editor, content]);
+    editor.commands.setContent(safeContent, { emitUpdate: false });
+  }, [editor, safeContent]);
 
   useEffect(() => {
     return () => {

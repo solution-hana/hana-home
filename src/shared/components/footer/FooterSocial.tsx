@@ -30,7 +30,7 @@ export default function FooterSocial() {
           </Text>
         </Link>
 
-        <Link href={COMPANY_NAVER_BLOG_URL} target='_blank' outline='none'>
+        <Link href={COMPANY_NAVER_BLOG_URL} target='_blank' rel='noopener noreferrer' outline='none'>
           <Text 
             fontSize='md' 
             fontWeight='medium'
@@ -44,7 +44,7 @@ export default function FooterSocial() {
           </Text>
         </Link>
 
-        <Link href={COMPANY_TIKTOK_URL} target='_blank' outline='none'>
+        <Link href={COMPANY_TIKTOK_URL} target='_blank' rel='noopener noreferrer' outline='none'>
           <Text 
             fontSize='md' 
             fontWeight='medium'
@@ -58,7 +58,7 @@ export default function FooterSocial() {
           </Text>
         </Link>
         
-        <Link href={COMPANY_YOUTUBE_URL} target='_blank' outline='none'>
+        <Link href={COMPANY_YOUTUBE_URL} target='_blank' rel='noopener noreferrer' outline='none'>
           <Text 
             fontSize='md' 
             fontWeight='medium'

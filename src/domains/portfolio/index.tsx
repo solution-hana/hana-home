@@ -25,17 +25,17 @@ export default function Portfolio(props: PortfolioProps) {
   const handleClick = () => {
     // 블로그 PPA 이동
     if (type === 'ppa') {
-      window.open('https://blog.naver.com/hanasolution__/224237999037', '_blank');
+      window.open('https://blog.naver.com/hanasolution__/224237999037', '_blank', 'noopener,noreferrer');
     }
 
     // 블로그 RPS 이동
     if (type === 'rps') {
-      window.open('https://blog.naver.com/hanasolution__/224234163099', '_blank');
+      window.open('https://blog.naver.com/hanasolution__/224234163099', '_blank', 'noopener,noreferrer');
     }
 
     // 블로그 가정용(상계거래형) 이동
     if (type === 'residential') {
-      window.open('https://blog.naver.com/hanasolution__/224206483822', '_blank');
+      window.open('https://blog.naver.com/hanasolution__/224206483822', '_blank', 'noopener,noreferrer');
     }
   }
 

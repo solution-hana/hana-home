@@ -4,11 +4,17 @@ import { Inquiry } from '@/types/common';
 
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from '@/shared/config/constants';
 
+// 메일 본문에 들어가는 입력값 한 칸의 최대 길이
+const MAX_FIELD_LENGTH = 2000;
+
 const escapeHtml = (value: string) => {
   return value
+    .slice(0, MAX_FIELD_LENGTH)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 const createInquiryFrom = (inquiry: Inquiry) => {

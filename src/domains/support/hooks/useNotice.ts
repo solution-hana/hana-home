@@ -90,7 +90,6 @@ export const usePostNotice = () => {
 
         if (error) {
           console.error(error.message, error.details);
-          console.log(post.id);
           throw error;
         }
 

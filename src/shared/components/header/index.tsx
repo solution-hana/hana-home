@@ -63,7 +63,7 @@ export default function Header() {
       path.startsWith("https://");
     if (isExternal) {
       const url = path.startsWith("http") ? path : `https://${path}`;
-      window.open(url, "_blank");
+      window.open(url, "_blank", "noopener,noreferrer");
     } else {
       navigate(path);
     }

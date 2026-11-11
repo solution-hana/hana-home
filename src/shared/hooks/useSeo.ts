@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import type { PageSeo } from '@/shared/config/seo';
 import { SITE_URL, OG_IMAGE_URL, resolveJsonLd, resolvePageSeo } from '@/shared/config/seo';
+import { serializeJsonLd } from '@/shared/utils/jsonLd';
 
 const JSON_LD_ELEMENT_ID = 'page-json-ld';
 
@@ -94,5 +95,5 @@ function setJsonLd(nodes: object[]) {
     document.head.appendChild(element);
   }
 
-  element.textContent = JSON.stringify(nodes);
+  element.textContent = serializeJsonLd(nodes);
 }

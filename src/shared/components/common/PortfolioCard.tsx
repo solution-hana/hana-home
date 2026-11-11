@@ -2,6 +2,7 @@ import { LucideExternalLink, PencilIcon, Trash2Icon } from 'lucide-react';
 
 import { Box, Heading, HStack, IconButton, Text } from '@chakra-ui/react';
 
+import { openExternal, toCssUrl } from '@/shared/utils/url';
 import { Portfolio } from '@/types/common';
 
 interface PortfolioCardProps {
@@ -41,7 +42,7 @@ export default function PortfolioCard(props: PortfolioCardProps) {
           bgSize="cover"
           bgPos="center"
           position="absolute"
-          bgImage={`url(${portfolio.image_url})`}
+          bgImage={toCssUrl(portfolio.image_url)}
         />
       </Box>
 
@@ -90,7 +91,7 @@ export default function PortfolioCard(props: PortfolioCardProps) {
                   _hover={{
                     bg: 'gray.100',
                   }}
-                  onClick={() => window.open(portfolio.link_url, '_blank')}
+                  onClick={() => openExternal(portfolio.link_url)}
                 >
                   <LucideExternalLink size={16} strokeWidth={2} />
                 </IconButton>
