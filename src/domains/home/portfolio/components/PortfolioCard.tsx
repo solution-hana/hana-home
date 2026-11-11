@@ -1,6 +1,8 @@
 import { Portfolio } from '@/types/common';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
+import { toCssUrl } from '@/shared/utils/url';
+
 interface PortfolioCardProps {
   item: Portfolio
 }
@@ -21,7 +23,7 @@ export function PortfolioCard(props: PortfolioCardProps) {
       <Box
         position="absolute"
         inset="0"
-        bgImage={`url(${item.image_url})`}
+        bgImage={toCssUrl(item.image_url)}
         bgSize="cover"
         bgPos="center"
       />

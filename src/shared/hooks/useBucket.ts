@@ -13,6 +13,16 @@ const BUCKET = 'hana_solution_images'
  *   const { uploadImage } = useBucket({ path: 'uploads' })
  *   const url = await uploadImage(file)
  */
+// 올릴 수 있는 이미지 형식과 저장할 확장자
+const IMAGE_EXTENSIONS: Record<string, string> = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+  'image/gif': 'gif',
+  'image/avif': 'avif',
+}
+const MAX_IMAGE_BYTES = 20 * 1024 * 1024
+
 export function useBucket({ path }: { path: string }) {
   // 현재 세션에서 업로드한 이미지 URL 목록 추적
   const uploadedUrls = useRef<string[]>([])
@@ -24,7 +34,10 @@ export function useBucket({ path }: { path: string }) {
    */
   const uploadImage = useCallback(async (file: File) => {
     // 1. 고유 경로 생성: {path}/{timestamp}_{randomId}.{ext}
-    const ext = file.name.split('.').pop()
+    // 확장자는 파일 이름이 아니라 실제 형식에서 정한다(svg·html 등 스크립트가 들어갈 수 있는 파일 차단)
+    const ext = IMAGE_EXTENSIONS[file.type]
+    if (!ext) throw new Error('이미지 파일(jpg · png · webp · gif · avif)만 올릴 수 있습니다.')
+    if (file.size > MAX_IMAGE_BYTES) throw new Error('이미지는 20MB 이하만 올릴 수 있습니다.')
     const uniqueName = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`
     const storagePath = `${path}/${uniqueName}`
 
