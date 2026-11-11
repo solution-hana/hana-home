@@ -16,6 +16,20 @@ export default function FooterSocial() {
       >
         <Heading fontSize='lg' fontWeight='medium' color='gray.300'>홍보센터</Heading>
 
+        <Link href='/promotion/column' outline='none'>
+          <Text 
+            fontSize='md' 
+            fontWeight='medium'
+            color='gray.400'
+            _hover={{
+              color: 'gray.200',
+            }}
+            transition='all 0.3s ease-in-out'
+          >
+            태양광 정보
+          </Text>
+        </Link>
+
         <Link href={COMPANY_NAVER_BLOG_URL} target='_blank' outline='none'>
           <Text 
             fontSize='md' 
