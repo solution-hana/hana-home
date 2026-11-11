@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { Rec } from '@/types/rec';
+import type { Rec, RecMonthlyItem } from '@/types/rec';
 
 import supabase from '@/shared/config/supabase';
 import { parseMonthlyRec } from '@/shared/utils/rec';
+import { keepLastGood, readLastGood } from '@/shared/utils/storage';
+
+// 조회가 실패하거나 비었을 때 쓰는 마지막 정상값 저장 키
+const REC_CACHE_KEY = 'hana:rec-recent';
 
 // 월간 REC 현물 시세 조회 훅 (하루 마다 재조회)
 export const useMonthlyRec = () => {
@@ -13,25 +17,24 @@ export const useMonthlyRec = () => {
       const now = new Date();
       // 오늘 날짜 포맷팅
       const tradeDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-      // 오늘자 기준 한달 전 날짜 포맷팅
-      const oneMonthAgo = new Date(now);
-      oneMonthAgo.setMonth(now.getMonth() - 1);
-      const oneMonthAgoDate = `${oneMonthAgo.getFullYear()}-${String(oneMonthAgo.getMonth() + 1).padStart(2, '0')}-${String(oneMonthAgo.getDate()).padStart(2, '0')}`;
-
-      // 한달 전 기준 데이터 조회
+      // 오늘까지의 최근 거래일 조회(수집이 늦어도 마지막 시세가 보이도록 시작일 제한을 두지 않는다)
       const { data, error } = await supabase
         .from('rec_spot_daily')
         .select('*')
-        .gte('trade_date', oneMonthAgoDate)
         .lte('trade_date', tradeDate)
         .order('trade_date', { ascending: false })
-        .limit(7);
+        .limit(14);
 
-      if (error) throw error;
+      if (error) {
+        const cached = readLastGood<RecMonthlyItem>(REC_CACHE_KEY);
+        if (cached.length > 0) return cached;
+        throw error;
+      }
 
-      const formattedRec = parseMonthlyRec(data as Rec[]);
+      // 가격이 있는 최근 7거래일만 사용
+      const formattedRec = parseMonthlyRec((data ?? []) as Rec[]).slice(0, 7);
 
-      return formattedRec;
+      return keepLastGood(REC_CACHE_KEY, formattedRec);
     },
     // 24시간 1분 동안 fresh
     staleTime: 1000 * 60 * 60 * 24 + 1000 * 60,

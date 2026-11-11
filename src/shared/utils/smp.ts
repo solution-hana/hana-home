@@ -33,14 +33,27 @@ export function formatSmpDateToKorean(dateStr: string): string {
 function calcWeightedAvg(items: Smp[], weightKey: keyof Smp): number {
   let weightedSum = 0;
   let weightSum = 0;
+  let priceSum = 0;
+  let count = 0;
 
   for (const item of items) {
-    const weight = item[weightKey] as number;
-    weightedSum += item.smp * weight;
+    const price = Number(item.smp);
+    if (!Number.isFinite(price)) continue;
+
+    // 가중치가 비어 있거나 글자로 오면 0 으로 본다
+    const weight = Number(item[weightKey]) || 0;
+    weightedSum += price * weight;
     weightSum += weight;
+    priceSum += price;
+    count += 1;
   }
 
-  return weightSum > 0 ? Math.round((weightedSum / weightSum) * 100) / 100 : 0;
+  if (count === 0) return 0;
+
+  // 가중치(부하) 값이 없는 날은 단순 평균으로 계산한다
+  const avg = weightSum > 0 ? weightedSum / weightSum : priceSum / count;
+
+  return Math.round(avg * 100) / 100;
 }
 
 /**
@@ -69,6 +82,7 @@ export function getSmpDailyWeightedSummaries(
         jejuWeightedAvg: calcWeightedAvg(jejuItems, "jeju_load"),
         totalWeightedAvg: calcWeightedAvg(landItems, "total_load"),
       };
-    }
-  );
+    })
+    // 가격이 하나도 없는 날은 뺀다(0원으로 보이지 않게)
+    .filter((summary) => summary.landWeightedAvg > 0 || summary.jejuWeightedAvg > 0);
 }

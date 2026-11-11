@@ -45,7 +45,7 @@ export default function Insight() {
   useEffect(() => {
     if (weeklySmpData && weeklySmpData.length > 0) {
       setLatestSmpData(weeklySmpData.find((data) => data.date === weeklySmpData[weeklySmpData.length - 1].date));
-      setPreviousSmpData(weeklySmpData.find((data) => data.date === weeklySmpData[weeklySmpData.length - 2].date));
+      setPreviousSmpData(weeklySmpData.find((data) => data.date === weeklySmpData[weeklySmpData.length - 2]?.date));
     }
   }, [weeklySmpData])
 
@@ -53,7 +53,7 @@ export default function Insight() {
   useEffect(() => {
     if (monthlyRecData && monthlyRecData.length > 0) {
       setLatestRecData(monthlyRecData.find((data) => data.date === monthlyRecData[0].date));
-      setPreviousRecData(monthlyRecData.find((data) => data.date === monthlyRecData[1].date));
+      setPreviousRecData(monthlyRecData.find((data) => data.date === monthlyRecData[1]?.date));
     }
   }, [monthlyRecData])
   
