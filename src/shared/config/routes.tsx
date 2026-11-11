@@ -61,6 +61,10 @@ export const ROUTES = [
     element: <PromotionPage />,
   },
   {
+    path: '/promotion/:type/:id',
+    element: <PromotionPage />,
+  },
+  {
     path: '/hana/back',
     element: <LoginPage />,
   },

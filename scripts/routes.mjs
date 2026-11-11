@@ -25,6 +25,10 @@ export const CONTENT_ROUTES = [
   '/portfolio/electrical-work',
 
   '/promotion/social-contribution',
+  // 칼럼 상세 경로는 src/shared/config/columns.ts 의 slug와 일치해야 한다
+  '/promotion/column',
+  '/promotion/column/livestock-roof-asbestos-slate',
+  '/promotion/column/factory-roof-direct-vs-lease',
 
   '/support/faq',
   '/support/notice',
