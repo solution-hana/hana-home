@@ -44,6 +44,8 @@ export const CONTENT_ROUTES = [
   '/promotion/column/parking-lot-canopy-solar',
   '/promotion/column/farmland-conversion-solar-procedure',
   '/promotion/column/kepco-grid-connection-check',
+  '/promotion/column/net-metering-surplus-power-settlement',
+  '/promotion/column/forest-land-solar-temporary-use-permit',
 
   '/support/faq',
   '/support/notice',
