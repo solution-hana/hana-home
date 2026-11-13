@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { FileExclamationPoint } from 'lucide-react';
+import { FileExclamationPoint, LucideChevronRight } from 'lucide-react';
 
-import {Flex, Box, Text, Heading, Button} from '@chakra-ui/react';
+import {Flex, Box, Text, Heading, Button, Link} from '@chakra-ui/react';
+
+import { COLUMNS } from '@/shared/config/columns';
 
 import { formatDateToKorean } from '@/shared/utils/date';
 import { Impactor } from '@/shared/components/common/Impactor';
@@ -69,6 +71,40 @@ export default function NoticeContents() {
           </Button>
         )}
       </Box>
+
+      {/* 공지에서 태양광 정보(칼럼)로 가는 안내 줄. 스크롤 효과 밖에 두어 바로 보이게 한다 */}
+      <Link
+        asChild
+        display="block"
+        mx={{ base: 4, md: 0 }}
+        px={{ base: 4, md: 6 }}
+        py={4}
+        borderWidth="1px"
+        borderColor="orange.200"
+        borderRadius="lg"
+        bg="orange.50"
+        outline="none"
+        textDecoration="none"
+        fontFamily="pretendard"
+        transition="all 0.3s ease-in-out"
+        _hover={{ borderColor: 'orange.500', textDecoration: 'none' }}
+      >
+        <RouterLink to="/promotion/column">
+          <Flex alignItems="center" gap={3}>
+            <Box flex="1" minW={0}>
+              <Text fontSize={{ base: 'md', md: 'lg' }} fontWeight="bold" color="gray.800" wordBreak="keep-all">
+                태양광 정보 {COLUMNS.length}편 보기
+              </Text>
+              <Text fontSize={{ base: 'sm', md: 'md' }} color="gray.600" wordBreak="keep-all">
+                태양광 설치 전에 많이 묻는 질문을 쉽게 풀어 드립니다.
+              </Text>
+            </Box>
+            <Box color="orange.500" flexShrink={0}>
+              <LucideChevronRight size={24} />
+            </Box>
+          </Flex>
+        </RouterLink>
+      </Link>
 
       <Impactor direction="bottom" once>
         <Box
