@@ -114,7 +114,7 @@ export default function ColumnDetail(props: ColumnDetailProps) {
         </Button>
       </Flex>
 
-      <Box width="100%" maxW="480px" mx="auto">
+      <Box width="100%" mx="auto">
         <FooterSupport />
       </Box>
     </Flex>

@@ -27,8 +27,9 @@ export default function FooterSupport() {
         <Button
           asChild
           size='sm'
-          mt={3}
+          mt={2}
           px={5}
+          width='full'
           borderRadius='lg'
           color='#191919'
           backgroundColor='#FEE500'
@@ -47,14 +48,14 @@ export default function FooterSupport() {
         </Button>
 
         <Button
-          size='xs'
+          size='sm'
           variant='plain'
           color='gray.400'
           borderColor='gray.400'
           borderRadius='lg'
-          mt={1}
-          px={4}
-          py={2}
+          mt={0}
+          px={5}
+          width='full'
           _hover={{
             color: 'gray.200',
             borderColor: 'gray.200',
@@ -62,8 +63,8 @@ export default function FooterSupport() {
           transition='all 0.3s ease-in-out'
           onClick={() => window.open(COMPANY_KAKAO_CHAT_URL, '_blank', 'noopener,noreferrer')}
         >
-          <LucideMessageCircle size={10} />
-          <Text fontSize='xs' fontWeight='medium' letterSpacing='0.1em'>채널톡</Text>
+          <LucideMessageCircle size={14} />
+          <Text fontSize='sm' fontWeight='semibold'>채널톡</Text>
         </Button>
       </Box>
     </Stack>
