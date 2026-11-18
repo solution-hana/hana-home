@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react';
 
-import { COMPANY_KAKAO_CHAT_URL, COMPANY_PHONE_NUMBER } from '@/shared/config/constants';
-import { LucideMessageCircle } from 'lucide-react';
+import { COMPANY_KAKAO_ADD_FRIEND_URL, COMPANY_KAKAO_CHAT_URL, COMPANY_PHONE_NUMBER } from '@/shared/config/constants';
+import { LucideMessageCircle, LucideUserPlus } from 'lucide-react';
 
 export default function FooterSupport() {
   return (
@@ -25,14 +25,37 @@ export default function FooterSupport() {
         <Text fontSize='xs' textAlign='center' fontWeight='medium' color='gray.400'>평일 10:00 - 17:00 <br />(공휴일, 주말 제외)</Text>
 
         <Button
-          size='xs'
+          asChild
+          size='sm'
+          mt={2}
+          px={5}
+          width='full'
+          borderRadius='lg'
+          color='#191919'
+          backgroundColor='#FEE500'
+          _hover={{ backgroundColor: '#F5DC00' }}
+          transition='all 0.3s ease-in-out'
+        >
+          <a
+            href={COMPANY_KAKAO_ADD_FRIEND_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='하나솔루션 카카오톡 채널 추가 (새 창)'
+          >
+            <LucideUserPlus size={14} />
+            <Text fontSize='sm' fontWeight='semibold'>카카오톡 채널 추가</Text>
+          </a>
+        </Button>
+
+        <Button
+          size='sm'
           variant='plain'
           color='gray.400'
           borderColor='gray.400'
           borderRadius='lg'
-          mt={2}
-          px={4}
-          py={2}
+          mt={0}
+          px={5}
+          width='full'
           _hover={{
             color: 'gray.200',
             borderColor: 'gray.200',
@@ -40,8 +63,8 @@ export default function FooterSupport() {
           transition='all 0.3s ease-in-out'
           onClick={() => window.open(COMPANY_KAKAO_CHAT_URL, '_blank', 'noopener,noreferrer')}
         >
-          <LucideMessageCircle size={10} />
-          <Text fontSize='xs' fontWeight='medium' letterSpacing='0.1em'>채널톡</Text>
+          <LucideMessageCircle size={14} />
+          <Text fontSize='sm' fontWeight='semibold'>채널톡</Text>
         </Button>
       </Box>
     </Stack>
