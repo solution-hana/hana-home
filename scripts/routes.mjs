@@ -47,6 +47,11 @@ export const CONTENT_ROUTES = [
   '/promotion/column/net-metering-surplus-power-settlement',
   '/promotion/column/forest-land-solar-temporary-use-permit',
 
+  // 태양광 뉴스 상세 경로는 src/shared/config/news.ts 의 slug와 일치해야 한다
+  '/promotion/news',
+  '/promotion/news/grid-innovation-honam-substation-release',
+  '/promotion/news/hanasolution-iso9001-certification',
+
   '/support/faq',
   '/support/notice',
   '/support/inquiry',

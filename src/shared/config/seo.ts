@@ -15,6 +15,7 @@ import {
   COMPANY_KAKAO_CHANNEL_URL,
 } from './constants';
 import { COLUMNS, findColumn } from './columns';
+import { NEWS, findNews } from './news';
 
 // canonical·og:url·JSON-LD가 공유하는 기준 도메인
 export const SITE_URL = 'https://www.solutionhana.co.kr';
@@ -104,6 +105,14 @@ export const PAGE_SEO: Record<string, PageSeo> = {
   ...Object.fromEntries(COLUMNS.map((column) => [
     `/promotion/column/${column.slug}`,
     { title: `${column.title} | 태양광 정보 | (주)하나솔루션`, description: column.description },
+  ])),
+  '/promotion/news': {
+    title: '태양광 뉴스 | (주)하나솔루션',
+    description: '정부·공공기관 공식 발표를 근거로 태양광 정책, 지원사업, REC·SMP 제도 변화를 정리한 (주)하나솔루션의 태양광 뉴스입니다.',
+  },
+  ...Object.fromEntries(NEWS.map((article) => [
+    `/promotion/news/${article.slug}`,
+    { title: `${article.title} | 태양광 뉴스 | (주)하나솔루션`, description: article.description },
   ])),
 
   '/support/faq': {
@@ -247,6 +256,43 @@ function buildColumnArticleJsonLd(pathname: string) {
   };
 }
 
+// 태양광 뉴스 상세 경로(/promotion/news/<slug>)의 기사를 NewsArticle 노드로 만든다
+function buildNewsArticleJsonLd(pathname: string) {
+  const article = findNews(pathname.match(/^\/promotion\/news\/([^/]+)\/?$/)?.[1]);
+
+  if (!article) {
+    return undefined;
+  }
+
+  const url = `${SITE_URL}/promotion/news/${article.slug}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    '@id': `${url}#article`,
+    headline: article.title,
+    alternativeHeadline: article.subtitle,
+    description: article.description,
+    articleSection: article.category,
+    datePublished: article.publishedAt,
+    dateModified: article.modifiedAt ?? article.publishedAt,
+    url,
+    mainEntityOfPage: url,
+    image: OG_IMAGE_URL,
+    inLanguage: 'ko-KR',
+    author: { '@id': ORGANIZATION_ID },
+    publisher: { '@id': ORGANIZATION_ID },
+    // 기사 근거가 된 공식 원문 — 생성형 AI가 사실 출처를 확인할 수 있게 한다
+    isBasedOn: article.sources.map((source) => source.url),
+    citation: article.sources.map((source) => ({
+      '@type': 'CreativeWork',
+      name: source.name,
+      url: source.url,
+      datePublished: source.publishedAt,
+    })),
+  };
+}
+
 export function resolveJsonLd(pathname: string) {
   const nodes: object[] = [buildOrganizationJsonLd()];
 
@@ -262,6 +308,12 @@ export function resolveJsonLd(pathname: string) {
 
   if (columnArticle) {
     nodes.push(columnArticle);
+  }
+
+  const newsArticle = buildNewsArticleJsonLd(pathname);
+
+  if (newsArticle) {
+    nodes.push(newsArticle);
   }
 
   return nodes;
