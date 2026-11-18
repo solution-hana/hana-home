@@ -60,7 +60,7 @@ export default function ColumnDetail(props: ColumnDetailProps) {
         bg="orange.50"
         borderLeftWidth="4px"
         borderColor="orange.500"
-        borderRadius="md"
+        borderRadius="none"
       >
         <Text fontSize={BODY_FONT_SIZE} fontWeight="bold" color="orange.600" mb={2}>
           짧은 답
@@ -114,7 +114,7 @@ export default function ColumnDetail(props: ColumnDetailProps) {
         </Button>
       </Flex>
 
-      <Box width="100%" maxW="480px" mx="auto">
+      <Box width="100%" mx="auto">
         <FooterSupport />
       </Box>
     </Flex>
