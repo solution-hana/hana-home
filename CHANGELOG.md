@@ -9,6 +9,15 @@
 
 ## [1.5.4] - 2026-11-19
 
+### Added
+
+- 고객센터 상자에 '카카오톡 채널 추가' 버튼 (`FooterSupport`) — 채널 친구 추가 주소로 새 창 이동
+- `COMPANY_KAKAO_ADD_FRIEND_URL` (`src/shared/config/constants.ts`) — 기존 `COMPANY_KAKAO_CHANNEL_URL` 뒤에 `/friend` 를 붙여 파생
+
+### Changed
+
+- 의존성 minor·patch 업데이트 11건 — `@tiptap/*` 3.33.1, `axios` 1.21.1, `@typescript-eslint/*`·`typescript-eslint` 8.72.2, `puppeteer` 25.17.0
+
 ### Fixed
 
 - 고객센터 상자의 '카카오톡 채널 추가'·'채널톡' 버튼 크기 통일 — 높이가 서로 달랐고(`size` sm/xs) 글자 수 차이로 너비도 어긋나 있었다. 둘 다 `size` sm·`width` full 로 맞추고 아이콘·글자 크기도 같게 했다. 칼럼 상세의 고객센터 상자 `maxW` 480px 는 버튼이 폭을 채우도록 제거
