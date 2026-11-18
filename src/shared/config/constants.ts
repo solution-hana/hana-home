@@ -29,6 +29,9 @@ export const COMPANY_KAKAO_CHANNEL_URL = import.meta.env.VITE_COMPANY_KAKAO_CHAN
 // 카카오톡 채널톡 URL
 export const COMPANY_KAKAO_CHAT_URL = import.meta.env.VITE_COMPANY_KAKAO_CHAT_URL as string || "https://pf.kakao.com/_KvpIX/chat";
 
+// 카카오톡 채널 추가(친구 추가) URL
+export const COMPANY_KAKAO_ADD_FRIEND_URL = `${COMPANY_KAKAO_CHANNEL_URL.replace(/\/$/, '')}/friend`;
+
 // 네이버 블로그 URL
 export const COMPANY_NAVER_BLOG_URL = import.meta.env.VITE_COMPANY_NAVER_BLOG_URL as string || "https://blog.naver.com/hanasolution__";
 
