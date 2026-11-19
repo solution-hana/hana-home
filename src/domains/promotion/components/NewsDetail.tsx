@@ -1,0 +1,260 @@
+import { Navigate, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+
+import { Box, Button, Flex, Heading, Link, Stack, Table, Text } from '@chakra-ui/react';
+
+import type { NewsBlock, NewsInline } from '@/types/news';
+
+import { findNews } from '@/shared/config/news';
+import { formatDateToKorean } from '@/shared/utils/date';
+import FooterSupport from '@/shared/components/footer/FooterSupport';
+
+const BODY_FONT_SIZE = { base: '17px', md: '18px' };
+
+interface NewsDetailProps {
+  slug: string;
+}
+
+export default function NewsDetail(props: NewsDetailProps) {
+  const { slug } = props;
+  const navigate = useNavigate();
+  const article = findNews(slug);
+
+  if (!article) {
+    return <Navigate to="/promotion/news" replace />;
+  }
+
+  const modifiedAt = article.modifiedAt && article.modifiedAt !== article.publishedAt ? article.modifiedAt : undefined;
+
+  return (
+    <Flex
+      as="article"
+      width="100%"
+      maxW="860px"
+      direction="column"
+      gap={{ base: 6, md: 8 }}
+      px={{ base: 4, md: 12 }}
+      py={{ base: 10, md: 16 }}
+      mb={12}
+      fontFamily="pretendard"
+      color="gray.700"
+    >
+      <Box as="header" borderBottomWidth="2px" borderColor="gray.200" pb={4}>
+        <Text fontSize="sm" fontWeight="bold" color="orange.600" mb={2}>
+          {article.isCompanyNews ? `하나솔루션 소식 · ${article.category}` : article.category}
+        </Text>
+        <Heading
+          as="h1"
+          fontSize={{ base: '22px', md: '30px' }}
+          fontWeight="800"
+          color="gray.800"
+          lineHeight="1.45"
+          letterSpacing="-0.02em"
+          wordBreak="keep-all"
+          mb={article.subtitle ? 2 : 3}
+        >
+          {article.title}
+        </Heading>
+        {article.subtitle && (
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.600" lineHeight="1.6" wordBreak="keep-all" mb={3}>
+            {article.subtitle}
+          </Text>
+        )}
+        <Text fontSize="sm" color="gray.500">
+          (주)하나솔루션 · 입력 <time dateTime={article.publishedAt}>{formatDateToKorean(article.publishedAt)}</time>
+          {modifiedAt && (
+            <>
+              {' '}· 수정 <time dateTime={modifiedAt}>{formatDateToKorean(modifiedAt)}</time>
+            </>
+          )}
+        </Text>
+      </Box>
+
+      <Text fontSize={BODY_FONT_SIZE} fontWeight="bold" color="gray.800" lineHeight="1.8" wordBreak="keep-all">
+        {article.lead}
+      </Text>
+
+      {article.blocks.map((block, index) => (
+        <NewsBlockView key={index} block={block} />
+      ))}
+
+      {article.sources.length > 0 && (
+        <Box as="section" borderTopWidth="1px" borderColor="gray.200" pt={6}>
+          <Heading as="h2" fontSize={{ base: '18px', md: '20px' }} fontWeight="bold" color="gray.800" mb={3}>
+            출처
+          </Heading>
+          <Stack as="ul" gap={2} ps={5} listStyleType="disc">
+            {article.sources.map((source) => (
+              <Box as="li" key={source.url} fontSize="md" lineHeight="1.7" wordBreak="keep-all">
+                <Link href={source.url} target="_blank" rel="noopener noreferrer" color="blue.600" textDecoration="underline">
+                  {source.name}
+                </Link>
+                {' '}({formatDateToKorean(source.publishedAt)})
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+      )}
+
+      <Flex gap={3} direction={{ base: 'column', sm: 'row' }} justifyContent="center">
+        <Button
+          size="lg"
+          variant="outline"
+          borderColor="gray.400"
+          color="gray.700"
+          fontSize="md"
+          fontWeight="bold"
+          gap={2}
+          onClick={() => navigate('/promotion/news')}
+        >
+          <ArrowLeft size={18} />
+          목록으로
+        </Button>
+        <Button
+          size="lg"
+          bg="#F97316"
+          color="white"
+          fontSize="md"
+          fontWeight="bold"
+          _hover={{ bg: 'orange.600' }}
+          onClick={() => navigate('/support/inquiry')}
+        >
+          견적문의 바로가기
+        </Button>
+      </Flex>
+
+      <Box width="100%" mx="auto">
+        <FooterSupport />
+      </Box>
+    </Flex>
+  );
+}
+
+function InlineText(props: { parts: NewsInline[] }) {
+  const { parts } = props;
+
+  return (
+    <>
+      {parts.map((part, index) =>
+        typeof part === 'string'
+          ? part
+          : <Text as="strong" key={index} fontWeight="bold" color="gray.800">{part.strong}</Text>,
+      )}
+    </>
+  );
+}
+
+function NewsBlockView(props: { block: NewsBlock }) {
+  const { block } = props;
+
+  switch (block.type) {
+    case 'paragraph':
+      return (
+        <Text fontSize={BODY_FONT_SIZE} lineHeight="1.9" wordBreak="keep-all">
+          <InlineText parts={block.parts} />
+        </Text>
+      );
+
+    case 'heading':
+      return (
+        <Heading
+          as="h2"
+          fontSize={{ base: '20px', md: '24px' }}
+          fontWeight="bold"
+          color="gray.800"
+          lineHeight="1.5"
+          wordBreak="keep-all"
+          mt={2}
+        >
+          {block.text}
+        </Heading>
+      );
+
+    case 'list':
+      return (
+        <Box
+          as={block.ordered ? 'ol' : 'ul'}
+          ps={6}
+          listStyleType={block.ordered ? 'decimal' : 'disc'}
+          fontSize={BODY_FONT_SIZE}
+          lineHeight="1.8"
+          wordBreak="keep-all"
+        >
+          {block.items.map((item, index) => (
+            <Box as="li" key={index} mb={2}>
+              <InlineText parts={item} />
+            </Box>
+          ))}
+        </Box>
+      );
+
+    case 'table':
+      return (
+        <>
+          {/* 넓은 화면: 표 */}
+          <Table.Root hideBelow="md" size="lg" variant="outline" fontSize={BODY_FONT_SIZE}>
+            <Table.Header>
+              <Table.Row bg="gray.800">
+                {block.headers.map((header) => (
+                  <Table.ColumnHeader key={header} color="white" fontWeight="bold" fontSize={BODY_FONT_SIZE}>
+                    {header}
+                  </Table.ColumnHeader>
+                ))}
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {block.rows.map((row) => (
+                <Table.Row key={row[0]}>
+                  {row.map((cell, index) => (
+                    <Table.Cell key={index} fontWeight={index === 0 ? 'bold' : 'normal'} color="gray.700">
+                      {cell}
+                    </Table.Cell>
+                  ))}
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+
+          {/* 좁은 화면: 가로 스크롤 없이 항목별 카드로 쌓는다 */}
+          <Stack hideFrom="md" gap={3}>
+            {block.rows.map((row) => (
+              <Box key={row[0]} borderWidth="1px" borderColor="gray.200" borderRadius="md" overflow="hidden">
+                <Text bg="gray.800" color="white" fontWeight="bold" fontSize={BODY_FONT_SIZE} px={4} py={2}>
+                  {row[0]}
+                </Text>
+                {row.slice(1).map((cell, index) => (
+                  <Box key={index} px={4} py={3} borderTopWidth={index === 0 ? 0 : '1px'} borderColor="gray.100">
+                    <Text fontSize="md" fontWeight="bold" color="orange.600">
+                      {block.headers[index + 1]}
+                    </Text>
+                    <Text fontSize={BODY_FONT_SIZE} lineHeight="1.7" wordBreak="keep-all">
+                      {cell}
+                    </Text>
+                  </Box>
+                ))}
+              </Box>
+            ))}
+          </Stack>
+        </>
+      );
+
+    case 'quote':
+      return (
+        <Box as="blockquote" borderLeftWidth="4px" borderColor="gray.300" ps={4} py={1}>
+          <Text fontSize={BODY_FONT_SIZE} lineHeight="1.8" color="gray.700" wordBreak="keep-all">
+            “{block.text}”
+          </Text>
+          <Text as="cite" display="block" fontSize="sm" color="gray.500" fontStyle="normal" mt={1}>
+            — {block.source}
+          </Text>
+        </Box>
+      );
+
+    case 'note':
+      return (
+        <Text fontSize="md" color="gray.600" lineHeight="1.7" bg="gray.50" p={4} borderRadius="md" wordBreak="keep-all">
+          ※ {block.text}
+        </Text>
+      );
+  }
+}

@@ -87,6 +87,7 @@ export const HEADER_MENU = [
     childMenu: [
       { name: "사회공헌", path: "/promotion/social-contribution" },
       { name: "태양광 정보", path: "/promotion/column" },
+      { name: "태양광 뉴스", path: "/promotion/news" },
       { name: "유튜브", path: COMPANY_YOUTUBE_URL },
       { name: "틱톡", path: COMPANY_TIKTOK_URL },
       { name: "블로그", path: COMPANY_NAVER_BLOG_URL },
