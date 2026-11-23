@@ -121,6 +121,19 @@ export default function SimplePrivacyModal(props: SimplePrivacyModalProps) {
               </Text>
             </Box>
 
+            <Box>
+              <Text fontWeight="700" color="gray.800" mb={3} fontSize="md">
+                광고 성과 측정을 위한 방문 기록 수집 안내
+              </Text>
+              <Text fontSize="sm" color="gray.700" lineHeight="tall">
+                본 홈페이지는 네이버 검색광고의 성과(광고를 통한 방문, 전화 문의 건수)를 확인하기 위해
+                네이버㈜가 제공하는 전환 추적 스크립트를 사용합니다. 이 과정에서 방문 일시, 방문한 페이지 주소,
+                브라우저 정보, 쿠키 등 방문 기록이 자동으로 생성되어 네이버㈜에 전송될 수 있습니다.
+                ㈜하나솔루션은 이 스크립트로 이름·연락처 등 문의 내용을 전송하지 않습니다.
+                수집을 원하지 않으시면 브라우저 설정에서 쿠키 저장을 거부할 수 있습니다.
+              </Text>
+            </Box>
+
             <Text fontSize="sm" color="gray.600" lineHeight="tall">
               귀하는 개인정보 수집·이용 및 처리방침에 대한 동의를 거부할 권리가 있습니다.
               단, 동의를 거부할 경우 문의 접수 및 서비스 이용이 제한될 수 있습니다.
