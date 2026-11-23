@@ -2,7 +2,8 @@ import { LucidePlus } from 'lucide-react';
 
 import { Flex, Image, Collapsible, Link, Box, Text } from '@chakra-ui/react';
 
-import { PROMOTION_NAV_LINKS } from '@/shared/config/constants';
+import { COMPANY_PHONE_HREF, PROMOTION_NAV_LINKS } from '@/shared/config/constants';
+import { trackNaverAdConversion } from '@/shared/utils/naverAd';
 
 export function PromotionButton() {
   return (
@@ -32,12 +33,16 @@ export function PromotionButton() {
               견적문의
             </Text>
             <Text
+              asChild
+              display="block"
               fontSize="lg"
               fontWeight="bold"
               color="orange.600"
               textAlign="center"
             >
-              1577<br />1497
+              <a href={COMPANY_PHONE_HREF} onClick={() => void trackNaverAdConversion('call')}>
+                1577<br />1497
+              </a>
             </Text>
           </Box>
           {PROMOTION_NAV_LINKS.map((link) => (

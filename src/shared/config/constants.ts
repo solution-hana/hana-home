@@ -17,6 +17,15 @@ export const COMPANY_ADDRESS = import.meta.env.VITE_COMPANY_ADDRESS as string ||
 // 대표번호
 export const COMPANY_PHONE_NUMBER = import.meta.env.VITE_COMPANY_PHONE_NUMBER as string || "1577-1497";
 
+// 대표번호 전화 걸기 주소
+export const COMPANY_PHONE_HREF = `tel:${COMPANY_PHONE_NUMBER}`;
+
+// 네이버 검색광고 전환 추적 사이트 ID(공통키). 비어 있으면 추적 스크립트를 불러오지 않는다.
+export const NAVER_AD_SITE_ID = import.meta.env.VITE_NAVER_AD_SITE_ID as string || "";
+
+// 네이버 검색광고 유입 기준 도메인(wcs.inflow 인자, 최상위 도메인)
+export const NAVER_AD_SITE_DOMAIN = "solutionhana.co.kr";
+
 // 팩스번호
 export const COMPANY_FAX_NUMBER = import.meta.env.VITE_COMPANY_FAX_NUMBER as string || "0504-427-5924";
 

@@ -8,6 +8,7 @@ import SubHero from '@/shared/components/sub/SubHero';
 import FloatingActionButton from '@/shared/components/fab';
 
 import { useSeo } from '@/shared/hooks/useSeo';
+import { trackNaverAdPageView } from '@/shared/utils/naverAd';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -21,6 +22,11 @@ export default function PageLayout({ children, showSubHero = true }: PageLayoutP
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
+  // 네이버 검색광고 공통 스크립트: 주소가 바뀔 때마다 페이지 열람을 한 번 보낸다
+  useEffect(() => {
+    void trackNaverAdPageView();
   }, [location.pathname]);
 
   return (
