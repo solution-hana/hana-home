@@ -30,6 +30,20 @@ export default function FooterSocial() {
           </Text>
         </Link>
 
+        <Link href='/promotion/news' outline='none'>
+          <Text
+            fontSize='md'
+            fontWeight='medium'
+            color='gray.400'
+            _hover={{
+              color: 'gray.200',
+            }}
+            transition='all 0.3s ease-in-out'
+          >
+            태양광 뉴스
+          </Text>
+        </Link>
+
         <Link href={COMPANY_NAVER_BLOG_URL} target='_blank' rel='noopener noreferrer' outline='none'>
           <Text 
             fontSize='md' 

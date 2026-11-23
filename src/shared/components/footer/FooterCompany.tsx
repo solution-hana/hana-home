@@ -1,6 +1,7 @@
 import { Box, Flex, Stack, Text, Image } from '@chakra-ui/react';
 
-import { COMPANY_NAME, COMPANY_BUSINESS_NUMBER, COMPANY_REPRESENTATIVE, COMPANY_ADDRESS, COMPANY_ELECTRIC_BUSINESS_NUMBER, COMPANY_FAX_NUMBER, COMPANY_EMAIL, COMPANY_PHONE_NUMBER } from '@/shared/config/constants';
+import { COMPANY_NAME, COMPANY_BUSINESS_NUMBER, COMPANY_REPRESENTATIVE, COMPANY_ADDRESS, COMPANY_ELECTRIC_BUSINESS_NUMBER, COMPANY_FAX_NUMBER, COMPANY_EMAIL, COMPANY_PHONE_NUMBER, COMPANY_PHONE_HREF } from '@/shared/config/constants';
+import { trackNaverAdConversion } from '@/shared/utils/naverAd';
 
 import logo from '@/assets/logo.svg';
 
@@ -32,7 +33,7 @@ export default function FooterCompany() {
         <Text as='span' color='gray.400' fontSize='sm'>사업자등록번호: {COMPANY_BUSINESS_NUMBER}</Text> 
         <Text as='span' color='gray.400' fontSize='sm'>전기공사업번호: {COMPANY_ELECTRIC_BUSINESS_NUMBER}</Text> 
         <Text as='span' color='gray.400' fontSize='sm'>주소: {COMPANY_ADDRESS}</Text>
-        <Text as='span' color='gray.400' fontSize='sm'>TEL: {COMPANY_PHONE_NUMBER} | FAX: {COMPANY_FAX_NUMBER}</Text>
+        <Text as='span' color='gray.400' fontSize='sm'>TEL: <a href={COMPANY_PHONE_HREF} onClick={() => void trackNaverAdConversion('call')}>{COMPANY_PHONE_NUMBER}</a> | FAX: {COMPANY_FAX_NUMBER}</Text>
         <Text as='span' color='gray.400' fontSize='sm'>E-MAIL: {COMPANY_EMAIL}</Text>
       </Box>
     </Stack>

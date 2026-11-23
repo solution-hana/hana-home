@@ -1,6 +1,7 @@
 import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react';
 
-import { COMPANY_KAKAO_ADD_FRIEND_URL, COMPANY_KAKAO_CHAT_URL, COMPANY_PHONE_NUMBER } from '@/shared/config/constants';
+import { COMPANY_KAKAO_ADD_FRIEND_URL, COMPANY_KAKAO_CHAT_URL, COMPANY_PHONE_HREF, COMPANY_PHONE_NUMBER } from '@/shared/config/constants';
+import { trackNaverAdConversion } from '@/shared/utils/naverAd';
 import { LucideMessageCircle, LucideUserPlus } from 'lucide-react';
 
 export default function FooterSupport() {
@@ -20,7 +21,9 @@ export default function FooterSupport() {
       >
         <Heading fontSize='lg' fontWeight='medium' letterSpacing='0.05em' color='orange.600'>고객센터</Heading>
 
-        <Text fontSize='3xl' textAlign='center' fontWeight='semibold' color='gray.400'>{COMPANY_PHONE_NUMBER}</Text>
+        <Text asChild fontSize='3xl' textAlign='center' fontWeight='semibold' color='gray.400'>
+          <a href={COMPANY_PHONE_HREF} onClick={() => void trackNaverAdConversion('call')}>{COMPANY_PHONE_NUMBER}</a>
+        </Text>
 
         <Text fontSize='xs' textAlign='center' fontWeight='medium' color='gray.400'>평일 10:00 - 17:00 <br />(공휴일, 주말 제외)</Text>
 

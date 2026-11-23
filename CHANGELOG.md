@@ -7,6 +7,31 @@
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-23
+
+### Added
+
+- 홍보센터 '태양광 뉴스' 코너 (`/promotion/news`) — 기사 목록(`NewsList`)·상세(`NewsDetail`)와 첫 기사 2편. 기사 데이터는 `src/shared/config/news.ts`, 본문 블록 형식은 `src/types/news.ts` 에 두고 코드로 관리한다
+  - 호남권 계통관리변전소 지정 해제 발표 (정책)
+  - (주)하나솔루션 ISO 9001:2015 품질경영시스템 인증 (인증)
+- 뉴스 기사별 `NewsArticle` 구조화 데이터 (`src/shared/config/seo.ts`) — 근거가 된 공식 원문을 `isBasedOn`·`citation` 으로 함께 내보내 생성형 AI 가 사실 출처를 확인할 수 있게 했다. 경로별 title·description, 프리렌더·사이트맵 경로도 포함
+- '태양광 뉴스' 메뉴 — 헤더 홍보센터 하위, 홍보센터 서브 내비게이션, 푸터 소셜 묶음
+- 네이버 검색광고 전환 추적 (`src/shared/utils/naverAd.ts`) — 공통 스크립트는 `PageLayout` 에서 주소가 바뀔 때마다 페이지 열람을 보내고, 전환 스크립트는 전화번호를 누를 때(`call`) 호출한다. `NAVER_AD_SITE_ID` 가 비어 있으면 스크립트를 불러오지 않으며, 프리렌더(`navigator.webdriver`)와 관리자 화면(`/hana/back`)에서는 실행하지 않는다
+- 전화번호 걸기 링크 (`COMPANY_PHONE_HREF`) — 푸터 회사 정보·고객센터, 플로팅 견적문의 상자. 전환 추적 지점과 같은 곳이다
+- 문의 동의 창(`SimplePrivacyModal`)에 '광고 성과 측정을 위한 방문 기록 수집 안내' — 전송 대상(쿠키·방문 일시·페이지 주소·브라우저 정보), 문의 입력값은 보내지 않는다는 사실, 쿠키 거부 방법을 적었다
+- 사이트맵 경로별 `lastmod` (`buildLastmod` · `scripts/routes.mjs`) — 글 상세는 그 글의 게시일, 글 목록은 가장 최근 글의 게시일, 공지사항 상세는 DB 작성일, 그 외는 `STATIC_LASTMOD`
+
+### Changed
+
+- `vercel.json` 의 CSP Report-Only `script-src` 에 `https://wcs.naver.net` 추가 — 네이버 전환 추적 스크립트 출처
+- 의존성 minor·patch 업데이트 16건 — `@tiptap/*` 3.34.0, `@supabase/supabase-js` 2.119.2, `@tanstack/react-query` 5.108.1, `react-router-dom` 7.18.6, `recharts` 3.11.0, `@typescript-eslint/*`·`typescript-eslint` 8.73.0, `eslint-plugin-react-refresh` 0.5.8, `puppeteer` 25.18.1, `vite-plugin-sitemap` 0.11.0
+- Dependabot 설정 (`.github/dependabot.yml`) — 동시 PR 수를 3 → 1 로 줄이고, 호환성이 맞물리는 패키지의 major 업데이트는 PR 을 올리지 않게 했다. 빌드 툴체인(`vite`·`vite-plugin-*`·`@vitejs/plugin-react`), 타입·린트(`typescript`·`eslint`·`@eslint/js`·`eslint-plugin-*`·`typescript-eslint`·`@typescript-eslint/*`), React 코어(`react`·`react-dom`·`@types/react`·`@types/react-dom`), 프리렌더(`puppeteer`·`@sparticuz/chromium`)가 대상이다. major 로만 고쳐지는 보안 건도 함께 걸러지므로 Dependabot alerts 는 따로 확인한다
+
+### Fixed
+
+- 사이트맵에서 구글 소유확인 파일 경로(`/googlec6f6252f97816075`)를 제외 (`SITEMAP_EXCLUDE`) — 확장자 없는 404 주소가 색인 대상으로 들어가 있었다
+- 사이트맵의 `lastmod` 가 모든 주소에 빌드 시각으로 똑같이 찍히던 문제
+
 ## [1.5.4] - 2026-11-19
 
 ### Added
