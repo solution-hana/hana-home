@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import { createClient } from '@supabase/supabase-js';
 
 /**
@@ -57,16 +59,81 @@ export const CONTENT_ROUTES = [
   '/support/inquiry',
 ];
 
+// sitemap 에 넣지 않을 경로. 빌드 산출물의 html 은 자동 수집되므로,
+// public/ 에 둔 구글 소유확인 파일이 확장자 없는 주소(404)로 들어가지 않게 뺀다.
+export const SITEMAP_EXCLUDE = ['/googlec6f6252f97816075'];
+
+// 글이 아닌 일반 페이지의 sitemap lastmod. 일반 페이지 내용을 바꾼 날에 고쳐 적는다.
+// (적지 않으면 플러그인이 모든 주소에 빌드 시각을 찍어 lastmod 가 전부 같아진다)
+export const STATIC_LASTMOD = '2026-11-19';
+
+// 태양광 정보·뉴스 글의 slug 별 게시일(publishedAt)을 설정 파일에서 읽는다
+function readPublishedDates(file) {
+  const text = fs.readFileSync(new URL(file, import.meta.url), 'utf8');
+  const dates = {};
+  // slug 뒤에 처음 나오는 publishedAt 이 그 글의 게시일이다
+  for (const match of text.matchAll(/slug:\s*'([^']+)'[\s\S]*?publishedAt:\s*'(\d{4}-\d{2}-\d{2})'/g)) {
+    dates[match[1]] = match[2];
+  }
+  return dates;
+}
+
+function latest(dates) {
+  return dates.reduce((a, b) => (a > b ? a : b));
+}
+
+/**
+ * sitemap lastmod 를 경로별로 만든다.
+ * - 글 상세: 그 글의 게시일
+ * - 글 목록: 가장 최근 글의 게시일
+ * - 공지사항 상세: 작성일(notices: fetchNotices 의 결과)
+ * - 그 외: STATIC_LASTMOD
+ */
+export function buildLastmod(notices = []) {
+  const lastmod = { '*': new Date(STATIC_LASTMOD) };
+
+  const sections = [
+    ['/promotion/column', '../src/shared/config/columns.ts'],
+    ['/promotion/news', '../src/shared/config/news.ts'],
+  ];
+
+  for (const [base, file] of sections) {
+    const dates = readPublishedDates(file);
+
+    for (const route of CONTENT_ROUTES.filter((r) => r.startsWith(`${base}/`))) {
+      const date = dates[route.slice(base.length + 1)];
+      if (!date) {
+        throw new Error(`sitemap lastmod: ${route} 의 publishedAt 을 찾지 못했습니다`);
+      }
+      lastmod[route] = new Date(date);
+    }
+
+    const all = Object.values(dates);
+    if (all.length > 0) {
+      lastmod[base] = new Date(latest([...all, STATIC_LASTMOD]));
+    }
+  }
+
+  for (const notice of notices) {
+    const parsed = new Date(notice.createdAt);
+    if (notice.createdAt && !Number.isNaN(parsed.getTime())) {
+      lastmod[notice.route] = parsed;
+    }
+  }
+
+  return lastmod;
+}
+
 // 색인 대상은 아니지만 직접 접근 시 404가 되면 안 되는 경로
 export const UNLISTED_ROUTES = ['/preparation'];
 
-// 공개된 공지사항 상세 경로를 DB에서 조회한다
-export async function fetchNoticeRoutes(supabaseUrl, supabaseKey) {
+// 공개된 공지사항 상세 경로와 작성일을 DB에서 조회한다
+export async function fetchNotices(supabaseUrl, supabaseKey) {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   const { data, error } = await supabase
     .from('posts')
-    .select('id')
+    .select('id, created_at')
     .eq('category', 'NOTICE')
     .eq('is_visible', true)
     .order('created_at', { ascending: false });
@@ -75,5 +142,12 @@ export async function fetchNoticeRoutes(supabaseUrl, supabaseKey) {
     throw new Error(`공지사항 경로 조회 실패: ${error.message}`);
   }
 
-  return data.map((post) => `/support/notice/${post.id}`);
+  return data.map((post) => ({ route: `/support/notice/${post.id}`, createdAt: post.created_at }));
+}
+
+// 공개된 공지사항 상세 경로만 필요할 때 쓴다(프리렌더)
+export async function fetchNoticeRoutes(supabaseUrl, supabaseKey) {
+  const notices = await fetchNotices(supabaseUrl, supabaseKey);
+
+  return notices.map((notice) => notice.route);
 }
