@@ -253,6 +253,18 @@ function buildColumnArticleJsonLd(pathname: string) {
     inLanguage: 'ko-KR',
     author: { '@id': ORGANIZATION_ID },
     publisher: { '@id': ORGANIZATION_ID },
+    ...(column.sources && column.sources.length > 0
+      ? {
+          // 글의 근거가 된 공식 원문 — 생성형 AI가 사실 출처를 확인할 수 있게 한다
+          isBasedOn: column.sources.map((source) => source.url),
+          citation: column.sources.map((source) => ({
+            '@type': 'CreativeWork',
+            name: source.name,
+            url: source.url,
+            datePublished: source.publishedAt,
+          })),
+        }
+      : {}),
   };
 }
 
