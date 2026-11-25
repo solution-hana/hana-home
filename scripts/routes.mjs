@@ -51,6 +51,7 @@ export const CONTENT_ROUTES = [
 
   // 태양광 뉴스 상세 경로는 src/shared/config/news.ts 의 slug와 일치해야 한다
   '/promotion/news',
+  '/promotion/news/roof-solar-fall-warning-safety-subsidy',
   '/promotion/news/grid-innovation-honam-substation-release',
   '/promotion/news/hanasolution-iso9001-certification',
 

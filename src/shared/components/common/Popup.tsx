@@ -110,30 +110,6 @@ function PopupPanel({
             )}
           </Flex>
 
-          {safeLink && (
-            <Flex justify="center" w="full" pt={2}>
-              <Button
-                asChild
-                size="xs"
-                color="white"
-                bg="gray.900"
-                rounded="none"
-                fontWeight="700"
-                shadow="xl"
-                _hover={{
-                  bg: 'gray.800',
-                }}
-              >
-                <a
-                  href={safeLink}
-                  target={isExternalUrl(safeLink) ? '_blank' : undefined}
-                  rel={isExternalUrl(safeLink) ? 'noopener noreferrer' : undefined}
-                >
-                  이동하기
-                </a>
-              </Button>
-            </Flex>
-          )}
         </Flex>
       </Box>
 
@@ -144,6 +120,29 @@ function PopupPanel({
         bg="gray.900"
       >
         <Flex w="full" align="center" justify="end" gap={2}>
+          {/* 이동하기 버튼은 이미지 위에 겹치면 이미지 아래쪽 글자(전화번호 등)를 가리므로 하단 바 왼쪽에 둔다 */}
+          {safeLink && (
+            <Button
+              asChild
+              size="xs"
+              color="gray.900"
+              bg="orange.400"
+              rounded="lg"
+              fontWeight="700"
+              mr="auto"
+              _hover={{
+                bg: 'orange.300',
+              }}
+            >
+              <a
+                href={safeLink}
+                target={isExternalUrl(safeLink) ? '_blank' : undefined}
+                rel={isExternalUrl(safeLink) ? 'noopener noreferrer' : undefined}
+              >
+                이동하기
+              </a>
+            </Button>
+          )}
           <Button
             size="xs"
             bg="gray.800"
