@@ -1,3 +1,5 @@
+import type { NewsSource } from '@/types/news';
+
 /** 본문 한 줄 안의 조각 — 문자열은 일반 글자, strong은 굵은 글자 */
 export type ColumnInline = string | { strong: string };
 
@@ -23,4 +25,6 @@ export interface Column {
   blocks: ColumnBlock[];
   /** 본문 맨 아래 맺음 문장 */
   closing: string;
+  /** 글의 근거가 된 공식 원문(정부·공공기관 발표, 법령) */
+  sources?: NewsSource[];
 }
