@@ -1,7 +1,7 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
-import { Box, Button, Flex, Heading, Stack, Table, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Link, Stack, Table, Text } from '@chakra-ui/react';
 
 import type { ColumnBlock, ColumnInline } from '@/types/column';
 
@@ -86,6 +86,24 @@ export default function ColumnDetail(props: ColumnDetailProps) {
       >
         {column.closing}
       </Text>
+
+      {column.sources && column.sources.length > 0 && (
+        <Box as="section">
+          <Heading as="h2" fontSize={{ base: '18px', md: '20px' }} fontWeight="bold" color="gray.800" mb={3}>
+            출처
+          </Heading>
+          <Stack as="ul" gap={2} ps={5} listStyleType="disc">
+            {column.sources.map((source) => (
+              <Box as="li" key={source.url} fontSize="md" lineHeight="1.7" wordBreak="keep-all">
+                <Link href={source.url} target="_blank" rel="noopener noreferrer" color="blue.600" textDecoration="underline">
+                  {source.name}
+                </Link>
+                {' '}({formatDateToKorean(source.publishedAt)})
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+      )}
 
       <Flex gap={3} direction={{ base: 'column', sm: 'row' }} justifyContent="center">
         <Button
