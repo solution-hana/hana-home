@@ -6,6 +6,7 @@ import type { Inquiry } from '@/types/common';
 
 import { useMinSubmitTime } from '@/shared/hooks/useMinSubmitTime';
 import { isValidPhoneNumber, formatPhoneNumberInput } from '@/shared/utils/validation';
+import { trackNaverAdConversion } from '@/shared/utils/naverAd';
 
 import { useSendInquiry } from '@/domains/support/hooks/useInquiry';
 
@@ -64,6 +65,8 @@ export default function InquiryForm() {
 
   useEffect(() => {
     if (isSuccess) {
+      // 네이버 검색광고 전환(신청완료): 접수가 실제로 성공한 때에만 보낸다. 입력한 이름·연락처는 보내지 않는다.
+      void trackNaverAdConversion('lead');
       alert('견적 문의가 접수되었습니다.');
     }
     // 폼 초기화
