@@ -29,7 +29,7 @@ export interface PageSeo {
 
 export const DEFAULT_SEO: PageSeo = {
   title: '(주)하나솔루션 - 태양광 에너지 솔루션',
-  description: '태양광 전문기업 (주)하나솔루션. 전국 가정용 태양광, 자가용 PPA, 발전사업 RPS, RE100, 리파워링까지 설계·시공·유지보수를 수행합니다.',
+  description: '(주)하나솔루션은 공장·축사 지붕과 토지에 태양광 발전소를 설계·시공·유지보수하는 태양광 전문기업입니다. 발전사업 RPS, 자가용 PPA, RE100, 리파워링을 함께 다룹니다.',
 };
 
 export const PAGE_SEO: Record<string, PageSeo> = {
@@ -37,7 +37,7 @@ export const PAGE_SEO: Record<string, PageSeo> = {
 
   '/about/introduction': {
     title: '회사소개 | (주)하나솔루션',
-    description: '(주)하나솔루션은 전국에서 태양광 발전소를 설계·시공하는 태양광 에너지 전문기업입니다. 품질경영시스템 인증과 중소벤처기업 확인서를 보유하고 전기공사업 등록(서울-06429) 기반으로 시공합니다.',
+    description: '(주)하나솔루션은 태양광 발전소를 설계·시공하는 태양광 에너지 전문기업입니다. 품질경영시스템 인증과 중소벤처기업 확인서를 보유하고 전기공사업 등록(서울-06429) 기반으로 시공합니다.',
   },
   '/about/location': {
     title: '오시는 길 | (주)하나솔루션',
