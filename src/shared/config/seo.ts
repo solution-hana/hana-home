@@ -125,7 +125,7 @@ export const PAGE_SEO: Record<string, PageSeo> = {
   },
   '/support/inquiry': {
     title: '견적문의 | (주)하나솔루션',
-    description: `태양광 설치 상담과 무료 견적을 신청하세요. 대표번호 ${COMPANY_PHONE_NUMBER} 또는 온라인 문의로 접수하실 수 있습니다.`,
+    description: `태양광 설치 상담과 견적을 신청하세요. 대표번호 ${COMPANY_PHONE_NUMBER} 또는 온라인 문의로 접수하실 수 있습니다.`,
   },
 };
 
