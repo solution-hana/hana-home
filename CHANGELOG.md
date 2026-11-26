@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [1.6.3] - 2026-11-26
+
+### Fixed
+- 검색 결과 로고 노출: 정사각형 파비콘(favicon.ico·192·512 PNG·apple-touch-icon) 추가, Organization 스키마 logo PNG로 (#39)
+- 메타 설명 지역 표기 정리, 전국 대상 문구로 (#39)
+
 ## [1.6.2] - 2026-11-25
 
 ### Added
@@ -227,10 +233,4 @@
 [1.3.0]: https://github.com/jae-yon/hana-home/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/jae-yon/hana-home/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/jae-yon/hana-home/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/jae-yon/hana-home/releases/tag/v1.0.0## [1.6.3] - 2026-11-26
-
-### Fixed
-- 검색 결과 로고 노출: 정사각형 파비콘(favicon.ico·192·512 PNG·apple-touch-icon) 추가, Organization 스키마 logo PNG로 (#39)
-- 메타 설명 지역 표기 정리, 전국 대상 문구로 (#39)
-
-
+[1.0.0]: https://github.com/jae-yon/hana-home/releases/tag/v1.0.0
