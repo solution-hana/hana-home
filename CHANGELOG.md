@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [1.6.3] - 2026-11-26
+
+### Fixed
+- 검색 결과 로고 노출: 정사각형 파비콘(favicon.ico·192·512 PNG·apple-touch-icon) 추가, Organization 스키마 logo PNG로 (#39)
+- 메타 설명 지역 표기 정리, 전국 대상 문구로 (#39)
+
 ## [1.6.2] - 2026-11-25
 
 ### Added
