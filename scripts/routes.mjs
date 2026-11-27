@@ -29,6 +29,7 @@ export const CONTENT_ROUTES = [
   '/promotion/social-contribution',
   // 태양광 정보 상세 경로는 src/shared/config/columns.ts 의 slug와 일치해야 한다
   '/promotion/column',
+  '/promotion/column/rps-to-contract-market-existing-vs-new-plants',
   '/promotion/column/flexible-grid-connection-non-firm-access',
   '/promotion/column/grid-connection-right-competitive-bidding-2027',
   '/promotion/column/finance-support-factory-vs-building-solar',
@@ -54,6 +55,7 @@ export const CONTENT_ROUTES = [
 
   // 태양광 뉴스 상세 경로는 src/shared/config/news.ts 의 slug와 일치해야 한다
   '/promotion/news',
+  '/promotion/news/renewable-supply-system-briefing-2027',
   '/promotion/news/community-solar-ess-support-2026',
   '/promotion/news/renewable-finance-support-q4-rate-2026',
   '/promotion/news/roof-solar-fall-warning-safety-subsidy',
